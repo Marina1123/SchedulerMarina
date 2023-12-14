@@ -11,7 +11,11 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = "13XhA9foUtZlen7vM3RhSw49ZugOl7LVOeONTURktKbc"
-SAMPLE_RANGE_NAME = "A2:E"
+Person1Day2 = "Dean!C3:C7"
+Person2Day3 = "Brooke!C3:C7"
+SAMPLE_RANGE_NAME = "Dean!B3:G7"
+SAMPLE_RANGE_NAME = "Brooke!B3:G7"
+
 
 
 def main():
@@ -44,7 +48,7 @@ def main():
     sheet = service.spreadsheets()
     result = (
         sheet.values()
-        .get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME)
+        .get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME, majorDimension="COLUMNS")
         .execute()
     )
     values = result.get("values", [])
@@ -53,13 +57,19 @@ def main():
       print("No data found.")
       return
 
-    print("Name, Major:")
     for row in values:
       # Print columns A and E, which correspond to indices 0 and 4.
       print(row)
+
   except HttpError as err:
+    freeEndPeriod = 5 - len(row)
     print(err)
 
 
 if __name__ == "__main__":
   main()
+
+
+
+
+
